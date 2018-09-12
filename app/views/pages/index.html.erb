@@ -27,6 +27,71 @@
       </div>
     </div>
 
+    <div id="categoriesTiles">
+
+      <div id="categoriesTilesHeader">Shop By Category</div>
+
+      <table id="categoriesTilesTable">
+        <tr>
+
+          <td>
+            <%= link_to show_products_by_category_path(:category => "Video Games") do %>
+              <% image_tag("xbox-one.png") %>
+            <% end %>
+            <br>
+            Video Games
+
+          </td>
+          <td>
+            <%= link_to show_products_by_category_path(:category => "Headphones") do %>
+              <% image_tag("jblHeadphones.png") %>
+            <% end %>
+            <br>
+            Headphones
+            </a>
+          </td>
+          <td>
+            <%= link_to show_products_by_category_path(:category => "Laptops") do %>
+              <% image_tag("laptop.png") %>
+            <% end %>
+            <br>
+            Laptops
+            </a>
+          </td>
+
+        </tr>
+
+        <tr>
+          <td>
+            <%= link_to show_products_by_category_path(:category => "Phones") do %>
+              <% image_tag("phones.png") %>
+            <% end %>
+            <br>
+            Phones
+            </a>
+          </td>
+          <td>
+            <%= link_to show_products_by_category_path(:category => "Drones") do %>
+              <% image_tag("drones.png") %>
+            <% end %>
+            <br>
+            Drones
+            </a>
+          </td>
+          <td>
+            <%= link_to show_products_by_category_path(:category => "Tv") do %>
+              <% image_tag("tvs.png") %>
+            <% end %>
+            <br>
+            TV's
+            </a>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+
   </div>
 
 
