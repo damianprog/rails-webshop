@@ -1,0 +1,53 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#whiteBoxMainPhoto {
+    position: absolute;
+    background-color: white;
+    width: 350px;
+    height: 210px;
+    left: 26.5%;
+    top: 14%;
+    margin-top: 170px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#mainPhoto{
+  margin-top:40px;
+}
+
+#container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#mainPhotoDesc {
+    font-size: 33px;
+    margin-left: 15px;
+}
+
+#mainPhotoGreyDesc {
+    color: #666;
+    font-size: 17px;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+#mainPhotoCategoryLink {
+    margin-top: 35px;
+    margin-left: 15px;
+}
+
+#mainPhotoCategoryLink a {
+    text-decoartion: none;
+    color: black;
+}
+
+.input-group {
+  width:400px;
+}
+
+.container{
+  align:center;
+}
