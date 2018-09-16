@@ -2,3 +2,64 @@
   margin-left:320px;
   margin-top: 30px;
 }
+
+#accountInfoLabel{
+  margin-bottom:30px;
+}
+
+.accountSideTable{
+
+  margin-left:15px;
+  font-size:15px;
+  color:#0074b8;
+
+}
+
+.accountSideTable td{
+
+  padding-bottom:20px;
+
+}
+
+#accountSideTablesDiv{
+  float:left;
+}
+
+.blueHref{
+  text-decoration:none;
+  color:#0074b8;
+}
+
+#accountContentTable{
+
+  margin-left:15px;
+  font-size:20px;
+
+}
+
+#accountContentTable td{
+
+  padding-bottom:20px;
+
+}
+
+#accountContentDiv{
+  float:left;
+  margin-left:100px;
+}
+
+//hr{
+//  margin-top:20px;
+//  margin-bottom:20px;
+//  width:700px;
+//}
+
+.accountIcon{
+  vertical-align:middle;
+  padding-right:15px;
+}
+
+.aAccountContent{
+  text-decoration:none;
+  color:black;
+}

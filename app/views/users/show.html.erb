@@ -1,0 +1,53 @@
+<div id="container">
+
+  <%= render 'layouts/account_side_table' %>
+
+  <div id="accountContentDiv">
+
+    <h2>Purchase History</h2>
+    <span style="font-size: 20px;">You didn't place any orders
+						yet!</span>
+    <hr>
+
+    <h2>Manage Your Account</h2>
+
+    <table id="accountContentTable">
+
+      <tr>
+        <td><%= link_to '#', class: 'aAccountContent' do %>
+            <%= image_tag("credit-card.png") %>
+            Add or edit a payment
+            method
+          <% end %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= link_to '#', class: 'aAccountContent' do %>
+            <%= image_tag("delivery-truck.png") %>
+            Add or edit a shipping
+            address
+          <% end %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= link_to edit_user_path, class: 'aAccountContent' do %>
+          <%= image_tag("profile.png") %>Make
+          changes to your profile
+          <% end %>
+        </td>
+      </tr>
+
+      <tr>
+        <td><%= image_tag("locked.png") %>Change
+          your password
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+</div>
