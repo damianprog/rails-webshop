@@ -14,16 +14,29 @@
       <%= image_tag("topMainPhoto.png") %>
 
       <div id="whiteBoxMainPhoto">
-        <div id="mainPhotoDesc">Rails Eshop</div>
-        <div id="mainPhotoGreyDesc">
-          Get access to over 9000 various products
-        </div>
-        <div id="mainPhotoCategoryLink">
-          <%= link_to signup_path do %>
-            Sign up now
-            <%= image_tag("next.png") %>
-          <% end %>
-        </div>
+        <% if logged_in? %>
+          <div id="mainPhotoDesc">Rails Eshop</div>
+          <div id="mainPhotoGreyDesc">
+            Gaming experience on the highest level
+          </div>
+          <div id="mainPhotoCategoryLink">
+            <%= link_to show_products_by_category_path(:name => "Video Games") do %>
+              Category: Video Games
+              <%= image_tag("next.png") %>
+            <% end %>
+          </div>
+        <% else %>
+          <div id="mainPhotoDesc">Rails Eshop</div>
+          <div id="mainPhotoGreyDesc">
+            Get access to over 9000 various products
+          </div>
+          <div id="mainPhotoCategoryLink">
+            <%= link_to signup_path do %>
+              Sign up now
+              <%= image_tag("next.png") %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
 

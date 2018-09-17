@@ -1,0 +1,12 @@
+<dl class="dl-horizontal">
+
+  <% @product_images.each do |product_image| %>
+  <dt><strong>Name:</strong></dt>
+
+  <dd><%= product_image.name %></dd>
+
+  <dt></dt>
+
+  <dd><%= image_tag(product_image.picture.url, size: "300x300")%></dd>
+<% end %>
+</dl>

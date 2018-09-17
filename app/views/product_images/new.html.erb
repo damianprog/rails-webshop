@@ -1,0 +1,49 @@
+<%= form_for @product_image, :html => { multipart: true, :class => "form-horizontal image" } do |f| %>
+
+  <% if @product_image.errors.any? %>
+
+    <div id="error_expl" class="panel panel-danger">
+
+      <div class="panel-heading">
+
+        <h3 class="panel-title"><%= pluralize(@product_image.errors.count, "error") %> prohibited this image from being saved:</h3>
+
+      </div>
+
+      <div class="panel-body">
+
+        <ul>
+
+          <% @product_image.errors.full_messages.each do |msg| %>
+
+            <li><%= msg %></li>
+
+          <% end %>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  <% end %>
+
+  <div class="control-group">
+
+    <%= f.label :picture, :class => 'control-label' %>
+
+    <div class="controls">
+
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', :class => 'form-control'%>
+
+    </div>
+
+  </div>
+
+  <%= f.hidden_field :product_id %>
+
+  <%= f.submit :class => 'btn btn-primary' %>
+
+  <%= link_to 'Cancel',root_path %>
+
+<% end %>
