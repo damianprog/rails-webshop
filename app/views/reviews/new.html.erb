@@ -1,0 +1,35 @@
+<div id="reviewProductPhoto">
+  <%= image_tag @product.product_images.first.picture.url,size: "175x175"%><br>
+  <div class="smallGrey"><%= @product.name%></div>
+</div>
+  <div class="row">
+    <div class="col-xs-12">
+      <%= form_for(@review, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+        <div class="form-group">
+          <div class="col-sm-2 control-label">
+            <%= f.label :title %>
+          </div>
+          <div class="col-sm-8">
+            <%= f.text_field :title, class: "form-control", placeholder: "Title of review", autofocus: true %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-2 control-label">
+            <%= f.label :content %>
+          </div>
+          <div class="col-sm-8">
+            <%= f.text_area :content, rows: 10, class: "form-control", placeholder: "Review text" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <%= hidden_field_tag 'product_id', @product.id %>
+            <%= f.submit class: "btn btn-primary btn-lg" %>
+          </div>
+        </div>
+        <div class="col-xs-4 col-xs-offset-9">
+          [ <%= link_to 'Cancel', product_path(@product) %> ]
+        </div>
+      <% end %>
+    </div>
+  </div>

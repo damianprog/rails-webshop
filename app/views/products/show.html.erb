@@ -13,13 +13,13 @@
   <table class="productSaleTable">
 
     <tr>
-      <td><%= @product.price%> &dollar;
+      <td><%= @product.price %> &dollar;
 
         <div id="productSoldDesc">Sold &amp; shipped by Shop-Electronics</div>
       </td>
     </tr>
     <tr>
-      <td><b>FREE SHIPING</b><br> Arrives by <%=@arrives_date %></td>
+      <td><b>FREE SHIPING</b><br> Arrives by <%= @arrives_date %></td>
     </tr>
     <tr>
       <td>Free pickup not available from this seller</td>
@@ -69,7 +69,7 @@
 
     <ul>
       <% @highlights.each do |highlight| %>
-        <li><%= highlight%></li>
+        <li><%= highlight %></li>
       <% end %>
     </ul>
   </div>
@@ -78,7 +78,7 @@
 
     <h3>Description</h3>
 
-    <%=@product.description %>
+    <%= @product.description %>
   </div>
 
 </div>
@@ -89,17 +89,17 @@
   <table id="productSponsored">
     <tr>
       <td>
-        <%= link_to product_path,{:id => @sponsored.id,:class=>"productSponsoredPhotoLink"} do%>
-        <%= image_tag(@sponsored_image.picture.url, size: "100x100") %>
+        <%= link_to product_path, {:id => @sponsored.id, :class => "productSponsoredPhotoLink"} do %>
+          <%= image_tag(@sponsored_image.picture.url, size: "100x100") %>
         <% end %>
       </td>
       <td>
         <table id="productSponsoredContentTable">
           <tr>
-            <td>Sponsored by <%=@sponsored.brand%></td>
+            <td>Sponsored by <%= @sponsored.brand %></td>
           </tr>
           <tr>
-            <td> <%= link_to @sponsored.name, product_path(:id => @sponsored.id)%></td>
+            <td> <%= link_to @sponsored.name, product_path(:id => @sponsored.id) %></td>
           </tr>
           <tr>
             <td><%= @sponsored.price %> &dollar;</td>
@@ -109,6 +109,72 @@
       </td>
     </tr>
   </table>
+</div>
+
+<div style="clear:both"></div>
+
+<hr style="margin:30px 0 40px 0;">
+
+<div id="productCustomerReviews">
+  <div id="productCustomerReviewsLabel">
+    Customer Reviews
+  </div>
+
+  <div id="productWriteReview">
+    <div id="productWriteReviewContent">
+      <%= link_to 'Write Review', new_review_path(:id => @product.id), class: 'whiteLinkTo' %>
+    </div>
+
+  </div>
+
+  <div style="clear:both;"></div>
+
+  <div id="productReviewsCount">
+    <%= @product.reviews.length %> Reviews
+  </div>
+
+  <hr style="margin:30px 0 40px 0;">
+
+  <div id="productReviews">
+
+    <table id="productReviewsTable">
+
+      <% @product.reviews.each do |review| %>
+        <tr>
+          <td style="padding-top:20px;">
+            <div id="productReviewTitle">
+              <h4><%= review.title %></h4>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-size: 14px;
+                word-wrap:break-word;
+                display: block;
+                overflow:hidden;
+                height: 140px;
+                "
+                 id="reviewText<%=review.id %>">
+              <%=review.content %>
+            </div>
+            <br>
+            <% if review.content.length > 695 %>
+              <a class="moreDesc" data-value="reviewText<%=review.id%>">More...</a>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="smallGrey"><%= review.user.username %>,
+              <%= review.created_at.strftime("%d/%m/%Y") %></div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+
 </div>
 
 </div>
