@@ -1,3 +1,114 @@
-<dl class="dl-horizontal">
-    <dd><%= image_tag(@product_image.picture.url, size: "300x300")%></dd>
-</dl>
+<div class="productLeftSide">
+
+  <div id="productName"><%= @product.name %></div>
+
+  <div id="productPhoto">
+    <%= image_tag(@product_image.picture.url, size: "440x440") %>
+  </div>
+
+</div>
+
+<div class="productRightSide">
+
+  <table class="productSaleTable">
+
+    <tr>
+      <td><%= @product.price%> &dollar;
+
+        <div id="productSoldDesc">Sold &amp; shipped by Shop-Electronics</div>
+      </td>
+    </tr>
+    <tr>
+      <td><b>FREE SHIPING</b><br> Arrives by <%=@arrives_date %></td>
+    </tr>
+    <tr>
+      <td>Free pickup not available from this seller</td>
+    </tr>
+    <tr>
+      <td>Protect your device from drops &amp; spills with <b>Care
+        Plan</b> <br> <br> <input id="productCarePlan" type="checkbox"
+                                  name="carePlan"> Add <b>2-Year</b> Device Protection <b>&dollar;
+        2.00</b>
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="float: left">
+          Quantity: <select id="productQuantity" name="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+
+        </select>
+        </div>
+
+        <% if logged_in? %>
+          <input id="productAddToCart" type="submit" value="Add to cart"
+                 onclick="alertCart()">
+        <% else %>
+          <input id="productAddToCart" type="submit" value="Add to cart">
+        <% end %>
+
+      </td>
+    </tr>
+
+  </table>
+  </form>
+</div>
+<div style="clear: both"></div>
+<div class="productLeftSide">
+  <div id="productHighlights">
+
+    <h3>Highlights</h3>
+
+    <ul>
+      <% @highlights.each do |highlight| %>
+        <li><%= highlight%></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="productDescription">
+
+    <h3>Description</h3>
+
+    <%=@product.description %>
+  </div>
+
+</div>
+
+
+<div class="productRightSide">
+
+  <table id="productSponsored">
+    <tr>
+      <td>
+        <%= link_to product_path,{:id => @sponsored.id,:class=>"productSponsoredPhotoLink"} do%>
+        <%= image_tag(@sponsored_image.picture.url, size: "100x100") %>
+        <% end %>
+      </td>
+      <td>
+        <table id="productSponsoredContentTable">
+          <tr>
+            <td>Sponsored by <%=@sponsored.brand%></td>
+          </tr>
+          <tr>
+            <td> <%= link_to @sponsored.name, product_path(:id => @sponsored.id)%></td>
+          </tr>
+          <tr>
+            <td><%= @sponsored.price %> &dollar;</td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+
+</div>

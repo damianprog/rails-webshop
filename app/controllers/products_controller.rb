@@ -1,7 +1,15 @@
 class ProductsController < ApplicationController
+  before_action :require_admin,only: [:new,:create]
+
   def show
     @product = Product.find(params[:id])
     @product_image = ProductImage.find_by_product_id(params[:id])
+    @sponsored_image = ProductImage.find_by_product_id(params[:id])
+    @highlights = @product.highlights.split("/")
+    @sponsored = @product
+
+    @arrives_date = Date.today + 3.days
+    @arrives_date = @arrives_date.strftime("%d/%m/%Y")
   end
 
   def new
@@ -20,12 +28,9 @@ class ProductsController < ApplicationController
     end
   end
 
-  def show_by_category
-    render plain: params[:category].inspect
-  end
-
   private
     def product_params
       params.require(:product).permit(:name,:brand,:price,:highlights,:description,:category_name)
     end
+
 end

@@ -1,0 +1,38 @@
+
+  <h2 style="padding-bottom:15px;">Category: <%= @category.name %></h2>
+
+  <div style="clear: both"></div>
+  <div align="center">
+    <%= will_paginate @products%>
+  </div>
+
+  <% @products.each do |product| %>
+
+    <div id="categoryProductTile">
+
+      <div id="categoryProductPhoto">
+        <%= link_to product_path(product.id) do%>
+          <%= image_tag(product.product_images.first.picture.url,size:"175x175")%>
+        <% end %>
+      </div>
+      <div id="categoryProductName">
+        <%= link_to product_path(product.id) do%>
+         <%= truncate(product.name,length: 45) %>
+          <% if product.name.length > 45 %>
+          ...
+          <% end %>
+        <% end %>
+      </div>
+      <br>
+      <div id="categorySellerInfo">
+        <div id="categoryBoldGrey">Sold By:</div>
+        <div id="categoryThinGrey">Rails-Eshop</div>
+      </div>
+      <div style="clear: both"></div>
+      <br> <span id="price"><%= product.price%> &dollar;</span>
+    </div>
+  <% end %>
+
+  <div align="center">
+    <%= will_paginate @products%>
+  </div>
