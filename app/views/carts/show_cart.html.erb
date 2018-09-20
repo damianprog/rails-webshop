@@ -1,0 +1,87 @@
+<div id="cartCheckoutDiv">
+  <table id="cartPriceInfoTable">
+
+    <tr>
+      <td>SUBTOTAL (<%= @overall_quantity %>
+        Items)
+      </td>
+
+      <td class="cartRightTd">&dollar; <%= number_with_precision(@overall_price,:precision => 2) %></td>
+    </tr>
+
+    <tr>
+      <td>SHIPPING</td>
+
+      <td class="cartRightTd">
+        <% if @overall_price > 700 %>
+          FREE
+        <% elsif @overall_price == 0 %>
+          0
+        <% else %>
+          &dollar; 10
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>EST.TOTAL</td>
+
+      <td class="cartRightTd">&dollar;
+        <% if @overall_price > 700 %>
+          <%= number_with_precision(@overall_price,:precision => 2) %>
+        <% elsif @overall_price == 0 %>
+          0
+        <% else %>
+          <%= number_with_precision(@overall_price,:precision => 2) + 10 %>
+        <% end %>
+      </td>
+    </tr>
+
+  </table>
+
+  <% if !@cart_products.empty?%>
+    <%= link_to 'Checkout', checkout_shipping_type_path, class: "btn btn-primary btn-block", style: "margin-top:20px;" %>
+  <% end %>
+
+</div>
+
+<div id="cartDescLabel">
+  Your cart: <span id="boldNavyBlue">
+  <%= pluralize(@overall_quantity, 'item') %>
+			</span>
+</div>
+
+<% @cart_products.each do |cart_product| %>
+  <div id="cartProduct">
+    <div id="cartProductPhoto">
+      <%= image_tag cart_product.product.product_images.first.picture.url, size: "175x175" %>
+
+    </div>
+
+    <table id="cartProductTable">
+      <tr>
+        <td>
+          <%= link_to cart_product.product.name, product_path(cart_product.product), class: 'aProduct' %>
+        </td>
+      </tr>
+      <tr>
+        <td><span style="font-weight: bold; color: #666;">Sold
+								By:</span> <span style="color: #666;">Rails-Eshop</span></td>
+      </tr>
+      <tr>
+        <td><span id="cartPrice">&dollar;<%= cart_product.price %></span></td>
+      </tr>
+      <tr>
+        <td>2-DAY SHIPPING | PICKUP TODAY</td>
+      </tr>
+    </table>
+
+    <div id="cartQuantity">Quantity: <%= cart_product.quantity %></div>
+    <br>
+
+    <div id="cartRemove">
+      <%= link_to 'Remove', remove_cart_product_path(:id => cart_product.id), method: :delete %>
+    </div>
+
+  </div>
+  <div style="clear:both"></div>
+<% end %>

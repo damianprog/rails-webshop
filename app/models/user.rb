@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :reviews,dependent: :destroy
+  has_many :addresses,dependent: :destroy
+  has_one :cart
   before_save {self.email = email.downcase}
   validates :username,presence: true,
             uniqueness: {case_sensitive: false },

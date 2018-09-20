@@ -1,0 +1,33 @@
+<h1 style="padding-bottom: 15px;">Manage your shipping addresses</h1>
+
+<% @addresses.each do |address| %>
+  <div class="indexAddressBox">
+    <div class="indexAddressContent">
+      <table class="indexAddressContentTable">
+        <tr>
+          <td style="font-weight:bold;">
+            <%= address.first_name %> <%= address.last_name %>
+          </td>
+        </tr>
+        <tr>
+          <td class="smallGrey">
+            <%= address.street %>
+          </td>
+        </tr>
+        <tr>
+          <td class="smallGrey"><%= address.city %>, <%= address.post_code %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="indexAddressContentFooter">
+      <%= link_to 'Edit', edit_address_path(address) %>
+      | <%= link_to 'Delete', address_path(address), method: :delete,
+                    data: {confirm: "Are you sure you want to delete this address?"}%>
+    </div>
+  </div>
+<% end %>
+<div class="indexEmptyAddressBox">
+  <div class="indexEmptyAddressBoxContent">
+    <%= link_to 'Add new shipping address+', new_address_path, class: "indexEmptyAddressBoxContentLink" %>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('turbolinks:load',function() {
 
     $('.moreDesc').click(function(e) {
         descMoreLess($(this).text(), $(this).data("value"));

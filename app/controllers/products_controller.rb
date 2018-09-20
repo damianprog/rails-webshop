@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :require_admin,only: [:new,:create]
+  before_action :require_admin, only: [:new, :create]
 
   def show
     @product = Product.find(params[:id])
@@ -10,6 +10,9 @@ class ProductsController < ApplicationController
 
     @arrives_date = Date.today + 3.days
     @arrives_date = @arrives_date.strftime("%d/%m/%Y")
+
+    @cart_product = Cart.find_by_user_id(current_user).cart_products.last
+
   end
 
   def new
@@ -29,8 +32,9 @@ class ProductsController < ApplicationController
   end
 
   private
-    def product_params
-      params.require(:product).permit(:name,:brand,:price,:highlights,:description,:category_name)
-    end
+
+  def product_params
+    params.require(:product).permit(:name, :brand, :price, :highlights, :description, :category_name)
+  end
 
 end

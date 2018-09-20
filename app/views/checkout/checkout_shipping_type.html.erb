@@ -1,0 +1,133 @@
+<div id="leftSide">
+  <%= form_tag checkout_shipping_address_path do%>
+    <div id="shippingTypeHeaderInfo">
+      <%= image_tag("number-one-in-a-circle.png") %>  Shipping Options
+    </div>
+
+    <div class="shippingTypeDeliveryTypeBox">
+    <div class="shippingTypeDeliveryTypeBoxContent"><%= radio_button_tag 'delivery_type', 'Two-Day shipping' %> Two-Day shipping</div>
+  </div>
+
+  <div class="shippingTypeDeliveryTypeBox">
+    <div class="shippingTypeDeliveryTypeBoxContent"><%= radio_button_tag 'delivery_type', 'Free pickup' %>Free pickup</div>
+  </div>
+  <div id="shippingTypeProductsPhotos">
+
+    <% @cart_products.each do |cart_product| %>
+      <div id="shippingTypeProductPhoto">
+        <%= image_tag(cart_product.product.product_images.first.picture.url, size: "100x100") %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="shippingTypeArriveBy">
+    <div id="shippingTypeArriveByLabel">Arrive by</div>
+    <div class="shippingTypeDeliveryTypeInfoBox">
+      <div id="shippingTypeDeliveryTypeContentDate"><%= @arrives_date %></div>
+      <div id="shippingTypeDeliveryTypeContentPriceInfo">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="rightSide">
+
+
+  <div id="receipt">
+    <table id="priceInfoTable">
+
+      <tr>
+        <td>SUBTOTAL (<%= @overall_quantity %> Items)</td>
+
+        <td class="rightTd">&dollar;
+          <%= number_with_precision(@overall_price,:precision => 2)%>
+        </td>
+      </tr>
+
+      <tr>
+        <td>SHIPPING</td>
+
+        <td id="shippingRightTd"></td>
+      </tr>
+      <tr>
+        <td id="estTotal">EST.TOTAL</td>
+
+        <td id="estTotalRightTd"></td>
+      </tr>
+
+      <% @cart_products.each do |cart_product| %>
+        <tr>
+          <td>
+            <%= truncate(cart_product.product.name,length:20) %>
+            (x <%=cart_product.quantity %>)
+          </td>
+          <td class="rightTd">&dollar;<%=cart_product.price %>
+          </td>
+        </tr>
+      <% end %>
+
+    </table>
+
+  </div>
+
+
+</div>
+
+<div style="clear: both"></div>
+
+<%= submit_tag 'Continue', class: "btn btn-primary btn-lg col-sm-offset-5" %>
+<% end %>
+<hr id="shippingTypeFirstHr">
+
+<div class="unactiveLabel">
+  <%= image_tag("number-two-in-a-circle-grey.png") %> Enter shipping
+  address
+</div>
+
+<hr>
+
+<div class="unactiveLabel">
+  <%= image_tag("number-three-in-a-circle-grey.png") %> Enter
+  payment method
+</div>
+
+<div id="test"></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('input[value="Two-Day shipping"]').prop("checked", true);
+
+        let price = <%= number_with_precision(@overall_price,:precision => 2)%>
+
+        if(price<700)
+            payOption();
+        else
+            freeOption();
+
+        function payOption(){
+            $('#shippingTypeDeliveryTypeContentPriceInfo').text('$10');
+            $('#shippingRightTd').text('$10');
+            $('#estTotalRightTd').text('$' + (price + 10));
+        };
+
+        function freeOption(){
+            $('#shippingTypeDeliveryTypeContentPriceInfo').text('FREE');
+            $('#shippingRightTd').text('FREE');
+            $('#estTotalRightTd').text('$' + price);
+        };
+
+        $('input[name=delivery_type]').change(function(){
+            let value = $( 'input[name=delivery_type]:checked' ).val();
+            console.log(value)
+            if((value == "Two-Day shipping") && (price<700))
+                payOption()
+            else
+                freeOption();
+
+        });
+
+    });
+
+</script>

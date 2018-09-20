@@ -10,55 +10,49 @@
 
 <div class="productRightSide">
 
-  <table class="productSaleTable">
+  <%= form_tag add_product_to_cart_path do%>
+    <table class="productSaleTable">
 
-    <tr>
-      <td><%= @product.price %> &dollar;
+      <tr>
+        <td><%= @product.price %> &dollar;
 
-        <div id="productSoldDesc">Sold &amp; shipped by Shop-Electronics</div>
-      </td>
-    </tr>
-    <tr>
-      <td><b>FREE SHIPING</b><br> Arrives by <%= @arrives_date %></td>
-    </tr>
-    <tr>
-      <td>Free pickup not available from this seller</td>
-    </tr>
-    <tr>
-      <td>Protect your device from drops &amp; spills with <b>Care
-        Plan</b> <br> <br> <input id="productCarePlan" type="checkbox"
-                                  name="carePlan"> Add <b>2-Year</b> Device Protection <b>&dollar;
-        2.00</b>
+          <div id="productSoldDesc">Sold &amp; shipped by Shop-Electronics</div>
+        </td>
+      </tr>
+      <tr>
+        <td><b>FREE SHIPING</b><br> Arrives by <%= @arrives_date %></td>
+      </tr>
+      <tr>
+        <td>Free pickup not available from this seller</td>
+      </tr>
+      <tr>
+        <td>Protect your device from drops &amp; spills with <b>Care
+          Plan</b> <br> <br>
+          <%= check_box_tag 'device_protection' %> Add <b>2-Year</b> Device Protection <b>&dollar;
+          2.00</b>
 
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div style="float: left">
-          Quantity: <select id="productQuantity" name="quantity">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="float: left">
+            Quantity: <%= select_tag 'quantity',options_for_select([1,2,3,4,5,6,7,8 ])%>
 
-        </select>
-        </div>
+            </select>
+          </div>
 
-        <% if logged_in? %>
-          <input id="productAddToCart" type="submit" value="Add to cart"
-                 onclick="alertCart()">
-        <% else %>
-          <input id="productAddToCart" type="submit" value="Add to cart">
-        <% end %>
+          <% if logged_in? %>
+            <%= hidden_field_tag 'product_id', @product.id %>
+            <%= submit_tag 'Add to cart', class: "btn btn-primary btn-lg",style: "margin-left:80px;" %>
+          <% else %>
+            <%= link_to 'Add to cart', login_path, class: 'productAddToCart' %>
+          <% end %>
 
-      </td>
-    </tr>
+        </td>
+      </tr>
 
-  </table>
+    </table>
+  <% end %>
   </form>
 </div>
 <div style="clear: both"></div>
@@ -134,7 +128,6 @@
   </div>
 
   <hr style="margin:30px 0 40px 0;">
-
   <div id="productReviews">
 
     <table id="productReviewsTable">
@@ -154,13 +147,13 @@
                 display: block;
                 overflow:hidden;
                 height: 140px;
-                "
-                 id="reviewText<%=review.id %>">
-              <%=review.content %>
+            "
+                 id="reviewText<%= review.id %>">
+              <%= review.content %>
             </div>
             <br>
             <% if review.content.length > 695 %>
-              <a class="moreDesc" data-value="reviewText<%=review.id%>">More...</a>
+              <a class="moreDesc" data-value="reviewText<%= review.id %>">More...</a>
             <% end %>
           </td>
         </tr>

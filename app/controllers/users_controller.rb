@@ -9,6 +9,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
+    @cart = Cart.new
+    @cart.user = current_user
+    @cart.save
+
     if @user.save
       flash.now[:success] = "Your account has been successfully created!"
       render 'new'

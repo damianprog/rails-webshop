@@ -10,7 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_18_122453) do
+ActiveRecord::Schema.define(version: 2018_09_19_145600) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "country"
+    t.string "city"
+    t.string "street"
+    t.string "post_code"
+    t.string "phone"
+    t.integer "user_id"
+  end
+
+  create_table "cart_products", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "quantity"
+    t.float "price"
+    t.integer "cart_id"
+    t.boolean "device_protection"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.integer "user_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
