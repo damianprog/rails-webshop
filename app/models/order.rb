@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
+  belongs_to :address,optional: true
   has_many :cart_products
-  has_one :delivery,dependent: :destroy
+  belongs_to :delivery,dependent: :destroy
 end

@@ -1,133 +1,101 @@
 <div id="leftSide">
-  <%= form_tag checkout_shipping_address_path do%>
-    <div id="shippingTypeHeaderInfo">
+  <%= form_tag checkout_shipping_address_path do %>
+    <div class="headerInfo">
       <%= image_tag("number-one-in-a-circle.png") %>  Shipping Options
     </div>
 
     <div class="shippingTypeDeliveryTypeBox">
-    <div class="shippingTypeDeliveryTypeBoxContent"><%= radio_button_tag 'delivery_type', 'Two-Day shipping' %> Two-Day shipping</div>
-  </div>
-
-  <div class="shippingTypeDeliveryTypeBox">
-    <div class="shippingTypeDeliveryTypeBoxContent"><%= radio_button_tag 'delivery_type', 'Free pickup' %>Free pickup</div>
-  </div>
-  <div id="shippingTypeProductsPhotos">
-
-    <% @cart_products.each do |cart_product| %>
-      <div id="shippingTypeProductPhoto">
-        <%= image_tag(cart_product.product.product_images.first.picture.url, size: "100x100") %>
-      </div>
-    <% end %>
-  </div>
-
-  <div id="shippingTypeArriveBy">
-    <div id="shippingTypeArriveByLabel">Arrive by</div>
-    <div class="shippingTypeDeliveryTypeInfoBox">
-      <div id="shippingTypeDeliveryTypeContentDate"><%= @arrives_date %></div>
-      <div id="shippingTypeDeliveryTypeContentPriceInfo">
+      <div class="shippingTypeDeliveryTypeBoxContent"><%= radio_button_tag 'delivery_type', 'Two-Day shipping' %>
+        Two-Day shipping
       </div>
     </div>
-  </div>
 
-</div>
-
-<div id="rightSide">
-
-
-  <div id="receipt">
-    <table id="priceInfoTable">
-
-      <tr>
-        <td>SUBTOTAL (<%= @overall_quantity %> Items)</td>
-
-        <td class="rightTd">&dollar;
-          <%= number_with_precision(@overall_price,:precision => 2)%>
-        </td>
-      </tr>
-
-      <tr>
-        <td>SHIPPING</td>
-
-        <td id="shippingRightTd"></td>
-      </tr>
-      <tr>
-        <td id="estTotal">EST.TOTAL</td>
-
-        <td id="estTotalRightTd"></td>
-      </tr>
+    <div class="shippingTypeDeliveryTypeBox">
+      <div class="shippingTypeDeliveryTypeBoxContent"><%= radio_button_tag 'delivery_type', 'Free pickup' %>Free
+        pickup
+      </div>
+    </div>
+    <div id="shippingTypeProductsPhotos">
 
       <% @cart_products.each do |cart_product| %>
-        <tr>
-          <td>
-            <%= truncate(cart_product.product.name,length:20) %>
-            (x <%=cart_product.quantity %>)
-          </td>
-          <td class="rightTd">&dollar;<%=cart_product.price %>
-          </td>
-        </tr>
+        <div id="shippingTypeProductPhoto">
+          <%= image_tag(cart_product.product.product_images.first.picture.url, size: "100x100") %>
+        </div>
       <% end %>
+    </div>
 
-    </table>
+    <div id="shippingTypeArriveBy">
+      <div id="shippingTypeArriveByLabel">Arrive by</div>
+      <div class="shippingTypeDeliveryTypeInfoBox">
+        <div id="shippingTypeDeliveryTypeContentDate"><%= @arrives_date %></div>
+        <div id="shippingTypeDeliveryTypeContentPriceInfo">
+        </div>
+      </div>
+    </div>
 
+    </div>
+
+    <div id="rightSide">
+
+      <%= render 'receipt', overall_quantity: @overall_quantity,
+                 overall_price: @overall_price, cart_products: @cart_products %>
+
+    </div>
+
+    <div style="clear: both"></div>
+
+    <%= submit_tag 'Continue', class: "btn btn-primary btn-lg col-sm-offset-5",data: {turbolinks: false} %>
+  <% end %>
+  <hr id="shippingTypeFirstHr">
+
+  <div class="unactiveLabel">
+    <%= image_tag("number-two-in-a-circle-grey.png") %> Enter shipping
+    address
   </div>
 
+  <hr>
 
-</div>
+  <div class="unactiveLabel">
+    <%= image_tag("number-three-in-a-circle-grey.png") %> Enter
+    payment method
+  </div>
 
-<div style="clear: both"></div>
+  <div id="test"></div>
 
-<%= submit_tag 'Continue', class: "btn btn-primary btn-lg col-sm-offset-5" %>
-<% end %>
-<hr id="shippingTypeFirstHr">
+  <script type="text/javascript">
 
-<div class="unactiveLabel">
-  <%= image_tag("number-two-in-a-circle-grey.png") %> Enter shipping
-  address
-</div>
+      $(document).ready(function () {
+          $('input[value="Two-Day shipping"]').prop("checked", true);
 
-<hr>
+          let price = <%= number_with_precision(@overall_price,:precision => 2)%>
 
-<div class="unactiveLabel">
-  <%= image_tag("number-three-in-a-circle-grey.png") %> Enter
-  payment method
-</div>
+          if (price < 700)
+              payOption();
+          else
+              freeOption();
 
-<div id="test"></div>
+          function payOption() {
+              $('#shippingTypeDeliveryTypeContentPriceInfo').text('$10');
+              $('#shippingRightTd').text('$10');
+              $('#estTotalRightTd').text('$' + (price + 10));
+          };
 
-<script type="text/javascript">
+          function freeOption() {
+              $('#shippingTypeDeliveryTypeContentPriceInfo').text('FREE');
+              $('#shippingRightTd').text('FREE');
+              $('#estTotalRightTd').text('$' + price);
+          };
 
-    $(document).ready(function() {
-        $('input[value="Two-Day shipping"]').prop("checked", true);
+          $('input[name=delivery_type]').change(function () {
+              let value = $('input[name=delivery_type]:checked').val();
+              console.log(value)
+              if ((value == "Two-Day shipping") && (price < 700))
+                  payOption()
+              else
+                  freeOption();
 
-        let price = <%= number_with_precision(@overall_price,:precision => 2)%>
+          });
 
-        if(price<700)
-            payOption();
-        else
-            freeOption();
+      });
 
-        function payOption(){
-            $('#shippingTypeDeliveryTypeContentPriceInfo').text('$10');
-            $('#shippingRightTd').text('$10');
-            $('#estTotalRightTd').text('$' + (price + 10));
-        };
-
-        function freeOption(){
-            $('#shippingTypeDeliveryTypeContentPriceInfo').text('FREE');
-            $('#shippingRightTd').text('FREE');
-            $('#estTotalRightTd').text('$' + price);
-        };
-
-        $('input[name=delivery_type]').change(function(){
-            let value = $( 'input[name=delivery_type]:checked' ).val();
-            console.log(value)
-            if((value == "Two-Day shipping") && (price<700))
-                payOption()
-            else
-                freeOption();
-
-        });
-
-    });
-
-</script>
+  </script>

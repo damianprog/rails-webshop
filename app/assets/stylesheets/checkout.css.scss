@@ -21,7 +21,7 @@
   padding-bottom: 10px;
 }
 
-#priceInfoTable{
+#priceInfoTable {
   margin-right: 15px;
 }
 
@@ -38,12 +38,13 @@
   padding-left: 20px;
 }
 
-#shippingRightTd{
+#shippingRightTd {
   padding-left: 20px;
 }
 
-#shippingTypeHeaderInfo {
+.headerInfo {
   margin-top: 20px;
+  margin-bottom: 15px;
   font-size: 25px;
 }
 
@@ -58,9 +59,8 @@
   font-size: 22px;
   display: table;
   background-color: white;
-  float:left;
+  float: left;
 }
-
 
 .shippingTypeDeliveryTypeBoxContent {
   display: table-cell;
@@ -121,22 +121,76 @@
   border-radius: 15px;
   background-color: #0980d7;
   color: white;
-  font-size:17px;
+  font-size: 17px;
   position: relative;
 }
 
-.link-spanner{
-  position:absolute;
-  width:100%;
-  height:100%;
-  top:0;
+.link-spanner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
   left: 0;
   z-index: 1;
 }
 
-.unactiveLabel{
-  color:#999A9A;
-  font-size:23px;
-  margin-top:20px;
-  margin-bottom:20px;
+.unactiveLabel {
+  color: #999A9A;
+  font-size: 23px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.unactiveLabelTop {
+  float: left;
+  color: #666;
+  font-size: 19px;
+}
+
+.checkoutEdit {
+  float: left;
+  margin-left: 320px;
+  font-size: 19px;
+}
+
+.shippingAddressBox {
+  border: 1px solid #9d9fa2;
+  width: 230px;
+  height: 170px;
+  float: left;
+}
+
+.shippingAddressBox {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.shippingAddressContentTable td {
+  padding-bottom: 5px;
+}
+
+.shippingAddressContent {
+  padding-left: 20px;
+}
+
+.shippingEmptyAddressBox {
+  margin-left: 10px;
+  border: 1px solid #9d9fa2;
+  width: 230px;
+  height: 170px;
+  float: left;
+}
+
+.shippingEmptyAddressBoxContent {
+  width: 230px;
+  height: 170px;
+  line-height: 170px;
+  text-align: center;
+}
+
+.shippingEmptyAddressBoxContent {
+  width: 230px;
+  height: 170px;
+  line-height: 170px;
+  text-align: center;
 }

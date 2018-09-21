@@ -1,0 +1,102 @@
+<div id="leftSide">
+
+  <div class="unactiveLabelTop">
+    <%= image_tag("number-one-in-a-circle-grey.png") %>
+    Shipping Options
+  </div>
+
+  <div class="checkoutEdit">
+    <%= link_to 'Edit', checkout_shipping_type_path, data: {turbolinks: false} %>
+  </div>
+
+  <div style="clear:both;"></div>
+
+  <div style="clear: both"></div>
+
+  <hr>
+
+  <div class="headerInfo">
+    <%= image_tag("number-two-in-a-circle.png") %>
+    Enter shipping address
+  </div>
+
+  <%= check_box_tag 'custom_address_checkbox'%> Custom address
+
+  <%= form_tag checkout_payment_method_path do %>
+    <div id="shippingAllAddresses">
+    <% current_user.addresses.each do |address| %>
+      <div class="shippingAddressBox">
+        <div class="shippingAddressContent">
+          <table class="shippingAddressContentTable">
+            <tr>
+              <td style="padding-bottom: 10px;">
+                <%= radio_button_tag 'selected_address', address.id %> Select
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight:bold;">
+                <%= address.first_name %> <%= address.last_name %>
+              </td>
+            </tr>
+            <tr>
+              <td class="smallGrey">
+                <%= address.street %>
+              </td>
+            </tr>
+            <tr>
+              <td class="smallGrey"><%= address.city %>, <%= address.post_code %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    <% end %>
+    </div>
+
+    <div id="custom_address_form">
+
+    </div>
+
+    </div>
+
+    <div id="rightSide">
+
+      <%= render 'receipt', overall_quantity: @overall_quantity,
+                 overall_price: @overall_price, cart_products: @cart_products %>
+
+    </div>
+
+    <div style="clear: both"></div>
+
+    <div id="continue_checked_address">
+      <%= hidden_field_tag 'custom_address_form', "false" %>
+    <%= submit_tag 'Continue', class: "btn btn-primary btn-lg col-sm-offset-5" %>
+    </div>
+  <% end %>
+  <hr id="firstHr">
+
+  <div class="unactiveLabel">
+    <img style="vertical-align: middle"
+         src="/css/img/number-three-in-a-circle-grey.png"> Enter
+    payment method
+  </div>
+
+
+  </div>
+
+  <script type="text/javascript">
+      $(document).ready(function() {
+
+
+          $('#custom_address_checkbox').change(function() {
+              if ($(this).prop("checked")) {
+                  $('#shippingAllAddresses').hide();
+                  $('#continue_checked_address').hide();
+                  $('#custom_address_form').append("<%=j render 'custom_address_form'%>");
+              } else {
+                  $('#custom_address_form').empty();
+                  $('#shippingAllAddresses').show();
+                  $('#continue_checked_address').show();
+              }
+          });
+      });
+  </script>

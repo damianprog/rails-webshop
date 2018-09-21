@@ -1,9 +1,13 @@
 module OngoingOrdersRemover
   def remove_ongoing_orders
-    ongoing_orders = Order.find_by_state("ongoing")
+    @user_orders = current_user.orders
 
-    if ongoing_orders
-      ongoing_orders.destroy
+    if @user_orders
+      @user_orders.each do |order|
+        if order.state == "ongoing"
+          order.destroy
+        end
+      end
     end
   end
 end

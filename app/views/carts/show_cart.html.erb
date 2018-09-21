@@ -6,7 +6,7 @@
         Items)
       </td>
 
-      <td class="cartRightTd">&dollar; <%= number_with_precision(@overall_price,:precision => 2) %></td>
+      <td class="cartRightTd">&dollar; <%= number_with_precision(@overall_price, :precision => 2) %></td>
     </tr>
 
     <tr>
@@ -27,19 +27,19 @@
 
       <td class="cartRightTd">&dollar;
         <% if @overall_price > 700 %>
-          <%= number_with_precision(@overall_price,:precision => 2) %>
+          <%= number_with_precision(@overall_price, :precision => 2) %>
         <% elsif @overall_price == 0 %>
           0
         <% else %>
-          <%= number_with_precision(@overall_price,:precision => 2) + 10 %>
+          <%= number_with_precision(@overall_price, :precision => 2) + 10 %>
         <% end %>
       </td>
     </tr>
 
   </table>
 
-  <% if !@cart_products.empty?%>
-    <%= link_to 'Checkout', checkout_shipping_type_path, class: "btn btn-primary btn-block", style: "margin-top:20px;" %>
+  <% if !@cart_products.empty? %>
+    <%= link_to 'Checkout', checkout_shipping_type_path, class: "btn btn-primary btn-block", style: "margin-top:20px;", data: {turbolinks: false} %>
   <% end %>
 
 </div>

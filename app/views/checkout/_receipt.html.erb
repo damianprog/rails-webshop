@@ -1,0 +1,36 @@
+<div id="receipt">
+  <table id="priceInfoTable">
+
+    <tr>
+      <td>SUBTOTAL (<%= overall_quantity %> Items)</td>
+
+      <td class="rightTd">&dollar;
+        <%= number_with_precision(overall_price,:precision => 2)%>
+      </td>
+    </tr>
+
+    <tr>
+      <td>SHIPPING</td>
+
+      <td id="shippingRightTd">&dollar;<%= @shipping_price if @shipping_price%></td>
+    </tr>
+    <tr>
+      <td id="estTotal">EST.TOTAL</td>
+
+      <td id="estTotalRightTd"></td>
+    </tr>
+
+    <% cart_products.each do |cart_product| %>
+      <tr>
+        <td>
+          <%= truncate(cart_product.product.name,length:20) %>
+          (x <%=cart_product.quantity %>)
+        </td>
+        <td class="rightTd">&dollar;<%=cart_product.price %>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+
+</div>
