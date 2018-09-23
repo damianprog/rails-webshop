@@ -11,18 +11,34 @@
 
   <div style="clear:both;"></div>
 
-  <div style="clear: both"></div>
+  <hr>
+
+  <div class="unactiveLabelTop">
+    <%= image_tag("number-two-in-a-circle-grey.png") %>
+    Shipping address
+  </div>
+
+  <div style="clear:both;"></div>
+
+  <hr>
+
+  <div class="unactiveLabelTop">
+    <%= image_tag("number-three-in-a-circle-grey.png") %>
+    Payment method
+  </div>
+
+  <div style="clear:both;"></div>
 
   <hr>
 
   <div class="headerInfo">
-    <%= image_tag("number-two-in-a-circle.png") %>
-    Enter shipping address
+    <%= image_tag("number-four-in-circle.png") %>
+    Choose billing address
   </div>
 
-  <%= check_box_tag 'custom_address_checkbox' %> Custom address
+  <%= check_box_tag 'custom_address_checkbox' %> Custom billing address
 
-  <%= form_tag checkout_payment_method_path do %>
+  <%= form_tag checkout_finish_path do %>
     <div id="shippingAllAddresses">
       <% current_user.addresses.each do |address| %>
         <div class="shippingAddressBox">
@@ -51,6 +67,7 @@
         </div>
       <% end %>
     </div>
+    </div>
 
     <div id="custom_address_form">
 
@@ -72,13 +89,6 @@
       <%= submit_tag 'Continue', class: "btn btn-primary btn-lg col-sm-offset-5" %>
     </div>
   <% end %>
-  <hr id="firstHr">
-
-  <div class="unactiveLabel">
-    <%= image_tag "number-three-in-a-circle-grey.png" %> Enter
-    payment method
-  </div>
-
 
   </div>
 
@@ -90,7 +100,7 @@
               if ($(this).prop("checked")) {
                   $('#shippingAllAddresses').hide();
                   $('#continue_checked_address').hide();
-                  $('#custom_address_form').append("<%=j render 'custom_address_form', current_url: checkout_payment_method_path%>");
+                  $('#custom_address_form').append("<%=j render 'custom_address_form', current_url: checkout_finish_path%>");
               } else {
                   $('#custom_address_form').empty();
                   $('#shippingAllAddresses').show();

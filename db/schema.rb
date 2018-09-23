@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_23_085312) do
+ActiveRecord::Schema.define(version: 2018_09_23_133329) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "first_name"
@@ -59,14 +59,16 @@ ActiveRecord::Schema.define(version: 2018_09_23_085312) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "address_id"
     t.integer "user_id"
     t.datetime "order_date"
     t.float "overall_price"
     t.integer "delivery_id"
     t.string "state", default: "ongoing"
-    t.integer "billing_address_id"
     t.integer "credit_card_id"
+    t.integer "address_id"
+    t.integer "billing_address_id"
+    t.index ["address_id"], name: "index_orders_on_address_id"
+    t.index ["billing_address_id"], name: "index_orders_on_billing_address_id"
   end
 
   create_table "product_images", force: :cascade do |t|

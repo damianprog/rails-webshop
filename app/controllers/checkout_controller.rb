@@ -72,7 +72,29 @@ class CheckoutController < ApplicationController
 
     @order.credit_card = @credit_card
     @order.save
-    @custom_billing_address = Address.new
+    @custom_address = Address.new
+  end
+
+  def checkout_finish
+    @order = current_user.orders.last
+
+    if params[:custom_address_form] == "true"
+      @address = Address.new(address_params)
+      @address.user = current_user
+
+      if !@address.save
+        flash[:danger] = "Address inputs are incorrect.Make sure the given address is correct"
+        render 'checkout_billing_address'
+      end
+    else
+      @address = Address.find(params[:selected_address].to_i)
+    end
+
+    @order.billing_address = @address
+    @order.state = "finished"
+    @order.save
+    flash[:success] = "You've placed order successfully"
+    redirect_to user_path(current_user)
   end
 
   private

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'checkout_shipping_address',to: 'checkout#checkout_shipping_address'
   post 'checkout_payment_method',to: 'checkout#checkout_payment_method'
   post 'checkout_billing_address',to: 'checkout#checkout_billing_address'
+  post 'checkout_finish',to: 'checkout#checkout_finish'
   get 'show_cart', to: 'carts#show_cart'
   delete 'remove_cart_product', to: 'carts#remove_cart_product'
   post 'add_product_to_cart', to: 'carts#add_product_to_cart'

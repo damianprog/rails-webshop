@@ -34,6 +34,14 @@ class CreditCardsController < ApplicationController
     end
   end
 
+  def destroy
+    @credit_card = CreditCard.find(params[:id])
+    @credit_card.destroy
+
+    flash[:success] = "Credit card has been removed successfully"
+    redirect_to credit_cards_path
+  end
+
   private
 
   def credit_card_params
