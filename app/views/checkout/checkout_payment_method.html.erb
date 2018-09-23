@@ -1,0 +1,108 @@
+<div id="leftSide">
+
+  <div class="unactiveLabelTop">
+    <%= image_tag("number-one-in-a-circle-grey.png") %>
+    Shipping Options
+  </div>
+
+  <div class="checkoutEdit">
+    <%= link_to 'Edit', checkout_shipping_type_path, data: {turbolinks: false} %>
+  </div>
+
+  <div style="clear:both;"></div>
+
+  <hr>
+
+  <div class="unactiveLabelTop">
+    <%= image_tag("number-two-in-a-circle-grey.png") %>
+    Shipping address
+  </div>
+
+  <div style="clear:both;"></div>
+
+  <hr>
+
+  <div class="headerInfo">
+    <%= image_tag("number-three-in-a-circle.png") %>
+    Choose payment method
+  </div>
+
+  <%= check_box_tag 'custom_credit_card_checkbox'%> Custom credit card
+
+  <%= form_tag checkout_billing_address_path do %>
+    <div id="paymentMethodAllCreditCards">
+      <% current_user.credit_cards.each do |credit_card| %>
+        <div class="checkoutCreditCardBox">
+          <div class="checkoutCreditCardContent">
+            <table class="checkoutCreditCardContentTable">
+              <tr>
+                <td>
+                  <%= radio_button_tag 'selected_credit_card', credit_card.id %> Select
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= image_tag "visa.png",size: "70x70" %>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight:bold;">
+                  <%= credit_card.first_name %> <%= credit_card.last_name %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= truncate(credit_card.card_number,length: 4,omission: '') %> **** **** ****
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= credit_card.month_expiration %> / <%= credit_card.year_expiration %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="custom_credit_card_form">
+
+    </div>
+
+    </div>
+
+    <div id="rightSide">
+
+      <%= render 'receipt', overall_quantity: @overall_quantity,
+                 overall_price: @overall_price, cart_products: @cart_products %>
+
+    </div>
+
+    <div style="clear: both"></div>
+
+    <div id="continue_checked_credit_card">
+      <%= hidden_field_tag 'custom_credit_card_form', "false"  %>
+      <%= submit_tag 'Continue', class: "btn btn-primary btn-lg col-sm-offset-5" %>
+    </div>
+  <% end %>
+
+  </div>
+
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $("input:radio[name='selected_credit_card']:first").attr('checked', true);
+
+          $('#custom_credit_card_checkbox').change(function() {
+              if ($(this).prop("checked")) {
+                  $('#paymentMethodAllCreditCards').hide();
+                  $('#continue_checked_credit_card').hide();
+                  $('#custom_credit_card_form').append("<%=j render 'custom_credit_card_form'%>");
+              } else {
+                  $('#custom_credit_card_form').empty();
+                  $('#paymentMethodAllCreditCards').show();
+                  $('#continue_checked_credit_card').show();
+              }
+          });
+      });
+  </script>

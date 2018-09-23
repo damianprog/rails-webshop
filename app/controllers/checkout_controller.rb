@@ -1,19 +1,13 @@
 class CheckoutController < ApplicationController
+  before_action :initialize_receipt_fields
+  before_action :initialize_shipping_price, except: [:checkout_shipping_type,:checkout_shipping_address]
+
   include OngoingOrdersRemover
   include DeliveryCreator
   include CheckoutCounters
 
   def checkout_shipping_type
-    @overall_quantity = 0
-    @overall_price = 0.00
-
-    @cart = Cart.find_by_user_id(current_user)
-    @cart_products = @cart.cart_products
-
     @arrives_date = get_arrives_date
-
-    @overall_quantity = get_overall_quantity(@cart_products)
-    @overall_price = get_overall_price(@cart_products)
   end
 
   def checkout_shipping_address
@@ -21,9 +15,6 @@ class CheckoutController < ApplicationController
 
     @order = Order.new
     @order.user = current_user
-
-    @cart = Cart.find_by_user_id(current_user)
-    @cart_products = @cart.cart_products
 
     @order.overall_price = get_overall_price(@cart_products)
 
@@ -39,8 +30,6 @@ class CheckoutController < ApplicationController
       cart_product.save
     end
 
-    @overall_price = get_overall_price(@cart_products)
-    @overall_quantity = get_overall_quantity(@cart_products)
     @shipping_price = @delivery.delivery_cost
     @custom_address = Address.new
   end
@@ -62,13 +51,50 @@ class CheckoutController < ApplicationController
 
     @order.address = @address
     @order.save
+    @custom_credit_card = CreditCard.new
+  end
+
+  def checkout_billing_address
+    @order = current_user.orders.last
+
+    if params[:custom_credit_card_form] == "true"
+      @credit_card = CreditCard.new(credit_card_params)
+      @credit_card.user = current_user
+
+      if !@credit_card.save
+        flash.now[:danger] = "Credit card inputs are incorrect.Check credit card information validity"
+        @custom_credit_card = CreditCard.new
+        render 'checkout_payment_method'
+      end
+    else
+      @credit_card = CreditCard.find(params[:selected_credit_card].to_i)
+    end
+
+    @order.credit_card = @credit_card
+    @order.save
+    @custom_billing_address = Address.new
   end
 
   private
 
-  def address_params
-    params.require(:address).permit(:first_name,:last_name,:country,:city,:street,
-                                    :post_code,:phone,:user_id)
+  def initialize_receipt_fields
+    @cart = Cart.find_by_user_id(current_user)
+    @cart_products = @cart.cart_products
+    @overall_price = get_overall_price(@cart_products)
+    @overall_quantity = get_overall_quantity(@cart_products)
   end
 
+  def initialize_shipping_price
+    @shipping_price = current_user.orders.last.delivery.delivery_cost
+  end
+
+  def address_params
+    params.require(:address).permit(:first_name, :last_name, :country, :city, :street,
+                                    :post_code, :phone, :user_id)
+  end
+
+  def credit_card_params
+    params.require(:credit_card).permit(:first_name, :last_name, :card_number,
+                                        :month_expiration, :year_expiration, :security_code, :phone_number)
+  end
 end

@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   resources :product_images
   resources :reviews
   resources :addresses
+  resources :credit_cards
   get 'checkout_shipping_type',to: 'checkout#checkout_shipping_type'
   post 'checkout_shipping_address',to: 'checkout#checkout_shipping_address'
   post 'checkout_payment_method',to: 'checkout#checkout_payment_method'
+  post 'checkout_billing_address',to: 'checkout#checkout_billing_address'
   get 'show_cart', to: 'carts#show_cart'
   delete 'remove_cart_product', to: 'carts#remove_cart_product'
   post 'add_product_to_cart', to: 'carts#add_product_to_cart'

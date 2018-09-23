@@ -75,8 +75,7 @@
   <hr id="firstHr">
 
   <div class="unactiveLabel">
-    <img style="vertical-align: middle"
-         src="/css/img/number-three-in-a-circle-grey.png"> Enter
+    <%=image_tag "number-three-in-a-circle-grey.png" %> Enter
     payment method
   </div>
 
@@ -85,7 +84,7 @@
 
   <script type="text/javascript">
       $(document).ready(function() {
-
+          $("input:radio[name='selected_address']:first").attr('checked', true);
 
           $('#custom_address_checkbox').change(function() {
               if ($(this).prop("checked")) {

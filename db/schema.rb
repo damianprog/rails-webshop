@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_20_152317) do
+ActiveRecord::Schema.define(version: 2018_09_23_085312) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "first_name"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 2018_09_20_152317) do
     t.string "name"
   end
 
+  create_table "credit_cards", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "card_number"
+    t.string "month_expiration"
+    t.string "year_expiration"
+    t.string "security_code"
+    t.string "phone_number"
+    t.integer "user_id"
+  end
+
   create_table "deliveries", force: :cascade do |t|
     t.string "delivery_type"
     t.float "delivery_cost"
@@ -54,6 +65,8 @@ ActiveRecord::Schema.define(version: 2018_09_20_152317) do
     t.float "overall_price"
     t.integer "delivery_id"
     t.string "state", default: "ongoing"
+    t.integer "billing_address_id"
+    t.integer "credit_card_id"
   end
 
   create_table "product_images", force: :cascade do |t|

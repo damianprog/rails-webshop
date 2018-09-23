@@ -2,10 +2,10 @@
   <table id="priceInfoTable">
 
     <tr>
-      <td>SUBTOTAL (<%= overall_quantity %> Items)</td>
+      <td>SUBTOTAL (<%= @overall_quantity %> Items)</td>
 
       <td class="rightTd">&dollar;
-        <%= number_with_precision(overall_price,:precision => 2)%>
+        <%= number_with_precision(@overall_price,:precision => 2)%>
       </td>
     </tr>
 
@@ -17,10 +17,10 @@
     <tr>
       <td id="estTotal">EST.TOTAL</td>
 
-      <td id="estTotalRightTd"></td>
+      <td id="estTotalRightTd">&dollar;<%= @overall_price if @overall_price%></td>
     </tr>
 
-    <% cart_products.each do |cart_product| %>
+    <% @cart_products.each do |cart_product| %>
       <tr>
         <td>
           <%= truncate(cart_product.product.name,length:20) %>

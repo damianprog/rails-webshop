@@ -1,0 +1,46 @@
+<h1 style="padding-bottom: 15px;">Manage your credit cards</h1>
+
+<% if !@credit_cards %>
+  <h3>We see you haven't saved a credit card to your account.
+    Make your next checkout experience faster by adding a one now</h3>
+  <hr>
+<% end %>
+
+<% @credit_cards.each do |credit_card| %>
+  <div class="indexCreditCardBox">
+    <div class="indexCreditCardContent">
+      <div id="creditCardContentLogo">
+        <%= image_tag "visa.png",size: "100x100",style:"float:left;padding-right:10px;"%>
+      </div>
+      <table class="indexCreditCardContentTable">
+        <tr>
+          <td>
+            <%= credit_card.first_name %> <%= credit_card.last_name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= truncate(credit_card.card_number,length: 4,omission: '') %> **** **** ****
+          </td>
+        </tr>
+        <tr>
+          <td>
+             <%= credit_card.month_expiration %> / <%= credit_card.year_expiration %>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="indexCreditCardContentFooter">
+      <%= link_to 'Edit', edit_credit_card_path(credit_card) %>
+      | <%= link_to 'Delete', credit_card_path(credit_card), method: :delete,
+                    data: {confirm: "Are you sure you want to delete this credit card?"}%>
+    </div>
+  </div>
+<% end %>
+<div class="indexEmptyAddressBox">
+  <div class="indexEmptyAddressBoxContent">
+    <%= link_to 'Add new credit card+', new_credit_card_path, class: "indexEmptyAddressBoxContentLink" %>
+  </div>
+</div>
+

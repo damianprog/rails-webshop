@@ -1,0 +1,12 @@
+<% if @credit_card.errors.any? %>
+  <% @credit_card.errors.full_messages.each do |msg| %>
+    <ul>
+      <li><%= msg %></li>
+    </ul>
+  <% end %>
+<% end %>
+
+<div id="newCreditCardLeftSide">
+  <h1 style="padding-bottom: 20px;">Edit credit card</h1>
+  <%= render 'layouts/credit_card_form' %>
+</div>
