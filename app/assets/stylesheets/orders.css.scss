@@ -1,0 +1,33 @@
+#fullOrderTable td{
+  padding-top: 20px;
+}
+
+#fullOrderContainer{
+  margin-left:230px;
+  font-size: 17px;
+}
+
+#fullOrderDeliveryContainer{
+  font-size:22px;
+}
+
+#fullOrderDeliveryAddress{
+  float:left;
+}
+
+#fullOrderPhoneNumber{
+  float:left;
+  margin-left:195px;
+}
+
+#fullOrderPaymentTable td:not(:first-child){
+  padding-left:60px;
+}
+
+#fullOrderPaymentTable th:not(:first-child){
+  padding-left:60px;
+}
+
+#fullOrderPaymentTable th{
+  color:#666;
+}

@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  require 'will_paginate/array'
+
+  include OrdersGetter
+
   before_action :set_user, only: [:edit,:update,:show]
   before_action :require_same_user, only: [:edit,:update,:show]
 
@@ -35,6 +39,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @orders = get_finished_orders.paginate(page: params[:page], per_page: 5)
   end
 
   private

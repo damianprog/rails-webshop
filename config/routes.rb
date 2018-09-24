@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :reviews
   resources :addresses
   resources :credit_cards
+  resources :orders
   get 'checkout_shipping_type',to: 'checkout#checkout_shipping_type'
   post 'checkout_shipping_address',to: 'checkout#checkout_shipping_address'
   post 'checkout_payment_method',to: 'checkout#checkout_payment_method'

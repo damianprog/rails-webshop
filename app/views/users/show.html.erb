@@ -5,9 +5,44 @@
   <div id="accountContentDiv">
 
     <h2>Purchase History</h2>
+    <% if !@orders.empty? %>
+      <div align="center">
+        <%= will_paginate @orders%>
+      </div>
+      <table id="recentOrdersTable">
+        <tr>
+          <th>Products</th>
+          <th>Price</th>
+          <th>Date of order</th>
+          <th>Details</th>
+        </tr>
+        <% @orders.each do |order| %>
+          <tr>
+            <td>
+              <% order.cart_products.last(3).each do |cart_product| %>
+                <%= truncate(cart_product.product.name,length: 30) %><br>
+              <% end %>
+            </td>
+            <td>
+              &dollar; <%= number_with_precision(order.overall_price,:precision => 2) %>
+            </td>
+            <td>
+              <%=order.order_date.strftime("%d/%m/%Y") %>
+            </td>
+            <td>
+              <%= link_to 'Check Full Order',order_path(order)%>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      <div align="center">
+        <%= will_paginate @orders%>
+      </div>
+    <% else %>
     <span style="font-size: 20px;">You didn't place any orders
 						yet!</span>
-    <hr>
+      <hr>
+    <% end %>
 
     <h2>Manage Your Account</h2>
 
@@ -35,8 +70,8 @@
       <tr>
         <td>
           <%= link_to edit_user_path, class: 'aAccountContent' do %>
-          <%= image_tag("profile.png") %>Make
-          changes to your profile
+            <%= image_tag("profile.png") %>Make
+            changes to your profile
           <% end %>
         </td>
       </tr>

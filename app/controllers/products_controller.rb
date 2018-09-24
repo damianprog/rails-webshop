@@ -11,8 +11,6 @@ class ProductsController < ApplicationController
     @arrives_date = Date.today + 3.days
     @arrives_date = @arrives_date.strftime("%d/%m/%Y")
 
-    @cart_product = Cart.find_by_user_id(current_user).cart_products.last
-
   end
 
   def new

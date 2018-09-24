@@ -17,7 +17,7 @@
     <tr>
       <td id="estTotal">EST.TOTAL</td>
 
-      <td id="estTotalRightTd">&dollar;<%= @overall_price if @overall_price%></td>
+      <td id="estTotalRightTd">&dollar;<%= number_with_precision(@overall_price,:precision => 2)%></td>
     </tr>
 
     <% @cart_products.each do |cart_product| %>

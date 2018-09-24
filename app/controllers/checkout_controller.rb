@@ -15,10 +15,9 @@ class CheckoutController < ApplicationController
 
     @order = Order.new
     @order.user = current_user
-
     @order.overall_price = get_overall_price(@cart_products)
 
-    @delivery = get_created_delivery(params[:delivery_type])
+    @delivery = get_created_delivery(params[:delivery_type],@order.overall_price)
     @delivery.save
 
     @order.delivery = @delivery
@@ -92,6 +91,10 @@ class CheckoutController < ApplicationController
 
     @order.billing_address = @address
     @order.state = "finished"
+    @order.order_date = Date.today
+
+    @cart.cart_products.delete(@cart_products)
+
     @order.save
     flash[:success] = "You've placed order successfully"
     redirect_to user_path(current_user)

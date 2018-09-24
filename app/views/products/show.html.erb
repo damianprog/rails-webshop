@@ -45,7 +45,7 @@
             <%= hidden_field_tag 'product_id', @product.id %>
             <%= submit_tag 'Add to cart', class: "btn btn-primary btn-lg",style: "margin-left:80px;" %>
           <% else %>
-            <%= link_to 'Add to cart', login_path, class: 'productAddToCart' %>
+            <%= link_to 'Add to cart', login_path, class: 'btn btn-primary btn-lg',style: "margin-left:80px;" %>
           <% end %>
 
         </td>

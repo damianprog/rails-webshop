@@ -1,0 +1,93 @@
+<%= render 'layouts/account_side_table' %>
+
+<div id="fullOrderContainer">
+  <h2>Order Details</h2>
+
+  <table id="fullOrderTable">
+    <% @order.cart_products.each do |cart_product| %>
+      <tr>
+        <td>
+          <%= link_to product_path(cart_product.product) do %>
+            <%= image_tag(cart_product.product.product_images.first.picture.url, size: "100x100") %>
+          <% end %>
+        </td>
+        <td style="padding-left:15px;">
+          <div>
+            <%= link_to product_path(cart_product.product) do %>
+              <%= truncate(cart_product.product.name, length: 30) %>
+            <% end %>
+          </div>
+          <div style="margin-top:20px;color:#666;"><b>Sold By:</b>Rails-Eshop</div>
+        </td>
+        <td style="padding-left: 100px;">
+          <div>Quantity: (<%= cart_product.quantity %>)</div>
+          <div style="margin-top:20px;">Price:&dollar; <%= number_with_precision(cart_product.price, :precision => 2) %></div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <hr style="border-color:#565656;">
+  <table id="fullOrderDeliveryContainer">
+    <tr>
+      <td>
+        Delivery: <%= @order.delivery.delivery_type %>
+      </td>
+      <td style="padding-left: 190px">
+        <% if @order.delivery.delivery_type == 0 %>
+          FREE
+        <% else %>
+          &dollar;<%= @order.delivery.delivery_cost %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Price with delivery:
+      </td>
+      <td style="padding-left: 190px;padding-top:15px;">
+        &dollar; <%=number_with_precision(@order.overall_price,:precision => 2) %>
+      </td>
+    </tr>
+  </table>
+  <hr style="border-color:#565656;">
+  <div>
+    <div id="fullOrderDeliveryAddress">
+      <h4 style="color:#666">Delivery Address</h4>
+      <% if @order.delivery.delivery_type == "Free pickup" %>
+        Pickup at local Rails-Eshop collection point
+      <% else %>
+        <%= @order.address.first_name %> <%= @order.address.last_name %><br>
+        <%= @order.address.country %> <%= @order.address.city %> <%= @order.address.street %><br>
+        <%= @order.address.post_code %>
+      <% end %>
+
+    </div>
+    <div id="fullOrderPhoneNumber">
+      <h4 style="color:#666">Recipent's phone number</h4>
+      <%= @order.address.phone %>
+    </div>
+  </div>
+  <div style="clear:both;"></div>
+  <hr style="border-color:#565656;">
+  <h4 style="color:#666">Payment</h4>
+  <table id="fullOrderPaymentTable">
+    <tr>
+      <th>Payment method</th>
+      <th>Payment completed</th>
+      <th>Payment amount</th>
+    </tr>
+    <tr>
+      <td>
+        VISA MASTERCARD <br>
+        Rails-Eshop Payments
+      </td>
+      <td>
+        <%= @order.order_date.strftime("%d/%m/%Y") %>
+      </td>
+      <td>
+        &dollar;<%= number_with_precision(@order.overall_price,:precision => 2) %>
+      </td>
+    </tr>
+  </table>
+</div>
+

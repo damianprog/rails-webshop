@@ -31,7 +31,7 @@
         <% elsif @overall_price == 0 %>
           0
         <% else %>
-          <%= number_with_precision(@overall_price, :precision => 2) + 10 %>
+          <%= number_with_precision(@overall_price + 10, :precision => 2)  %>
         <% end %>
       </td>
     </tr>

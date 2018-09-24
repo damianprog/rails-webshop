@@ -1,17 +1,13 @@
 class CartsController < ApplicationController
   include CartProductsAdder
+  include CheckoutCounters
 
   def show_cart
     @cart = Cart.find_by_user_id(current_user)
     @cart_products = @cart.cart_products
 
-    @overall_quantity = 0
-    @overall_price = 0.00
-
-    @cart_products.each do |cart_product|
-      @overall_quantity += cart_product.quantity
-      @overall_price += cart_product.price
-    end
+    @overall_quantity = get_overall_quantity(@cart_products)
+    @overall_price = get_overall_price(@cart_products)
   end
 
   def add_product_to_cart
